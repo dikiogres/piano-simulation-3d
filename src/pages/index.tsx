@@ -15,6 +15,12 @@ function Home() {
     const p = new Piano();
     test.scene.add(p.getPianoGroup());
 
+    const onKeyUp = (event: any) => {
+      p.maybeStopPlayingNote(event.key);
+    };
+
+    window.addEventListener('keyup', onKeyUp);
+
   }, []);
 
   return (
