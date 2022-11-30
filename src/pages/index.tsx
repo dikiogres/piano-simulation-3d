@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
-import * as THREE from 'three';
+import { GUI } from 'dat.gui';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 
 import SceneInit from '../lib/SceneInit';
 import Piano from '../lib/Piano';
@@ -14,6 +15,11 @@ function Home() {
 
     const p = new Piano();
     test.scene.add(p.getPianoGroup());
+
+    const fontLoader = new FontLoader();
+    fontLoader.load('../../public/fonts/Helvetica-Bold.typeface.json', (font) => {
+      p.renderText(font);
+    });
 
     const onKeyDown = (event: any) => {
       if (event.repeat) {
