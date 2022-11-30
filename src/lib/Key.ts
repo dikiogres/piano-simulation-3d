@@ -15,7 +15,6 @@ export default class Key {
     private point: any;
     private textMesh: any;
     private naturalKeys: any;
-    //private rotateAroundWorldAxis: any;
 
     constructor(note: string, inputKey: string, xOffset: any){
       this.note = note;
@@ -70,7 +69,22 @@ export default class Key {
         }
     }
 
+    rotateAroundWorldAxis(rotation: number) {
+        // remove the offset
+        this.keyGroup.position.sub(this.point);
+    
+        // rotate the POSITION
+        this.keyGroup.position.applyAxisAngle(this.axis, this.theta * rotation);
+    
+        // re-add the offset
+        this.keyGroup.position.add(this.point);
+    
+        // rotate the OBJECT
+        this.keyGroup.rotateOnAxis(this.axis, this.theta * rotation);
+      }
+
     play(highlightColor: string) {
+        this.rotateAroundWorldAxis(1);
         this.sound.play();
         this.keyMesh.material.color.set(highlightColor);
         this.sound.fade(1, 0, 1000);
@@ -82,5 +96,6 @@ export default class Key {
         } else {
           this.keyMesh.material.color.set('#ffffff');
         }
+        this.rotateAroundWorldAxis(-1);
     }
 }
