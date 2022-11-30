@@ -4,12 +4,15 @@ import Stats from "three/examples/jsm/libs/stats.module";
 
 export default class SceneInit {
     
-    public fov: number;
+    private fov: number;
     public camera:any = new THREE.PerspectiveCamera;
     public scene:any = new THREE.Scene;
-    public stats: any;
-    public controls: any;
-    public renderer:any = new THREE.WebGLRenderer;
+    private stats: any;
+    private controls: any;
+    private renderer:any = new THREE.WebGLRenderer;
+    private clock: any;
+    private uniforms: any;
+    private canvasID: any;
 
     constructor(fov:any = 36, camera?:any, scene?:any, stats?:number, controls?:string, renderer?:any) {
         this.fov = fov;
@@ -30,14 +33,24 @@ export default class SceneInit {
         this.camera.position.z = 128;
         this.scene = new THREE.Scene();
 
-        // const spaceTexture:any = new THREE.TextureLoader().load("space2.jpeg");
-        // this.scene.background = spaceTexture;
+        this.clock = new THREE.Clock();
+        this.scene = new THREE.Scene();
 
-        // specify a canvas which is already created in the HTML file and tagged by an id
-        // aliasing enabled
+        this.uniforms = {
+            u_time: { type: 'f', value: 1.0 },
+            colorB: { type: 'vec3', value: new THREE.Color(0xfff000) },
+            colorA: { type: 'vec3', value: new THREE.Color(0xffffff) },
+        };
+
         this.renderer = new THREE.WebGLRenderer({
             canvas: document.getElementById("myThreeJsCanvas") as HTMLInputElement,
             antialias: true,
+        });
+
+        const canvas = document.getElementById(this.canvasID);
+        this.renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById("myThreeJsCanvas") as HTMLInputElement,
+          antialias: true,
         });
 
         this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -49,15 +62,15 @@ export default class SceneInit {
         document.body.appendChild(this.stats.dom);
 
         // ambient light which is for the whole scene
-        // let ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-        // ambientLight.castShadow = false;
-        // this.scene.add(ambientLight);
+        let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        ambientLight.castShadow = true;
+        this.scene.add(ambientLight);
 
         // spot light which is illuminating the chart directly
-        // let spotLight = new THREE.SpotLight(0xffffff, 0.55);
-        // spotLight.castShadow = true;
-        // spotLight.position.set(0, 40, 10);
-        // this.scene.add(spotLight);
+        let spotLight = new THREE.SpotLight(0xffffff, 1);
+        spotLight.castShadow = true;
+        spotLight.position.set(0, 64, 32);
+        this.scene.add(spotLight);
 
         //if window resize
         window.addEventListener("resize", () => this.onWindowResize(), false);
@@ -68,10 +81,12 @@ export default class SceneInit {
         window.requestAnimationFrame(this.animate.bind(this));
         this.render();
         this.stats.update();
-        // this.controls.update();
+        this.controls.update();
     }
 
     render() {
+        this.renderer.render(this.scene, this.camera);
+        this.uniforms.u_time.value += this.clock.getDelta();
         this.renderer.render(this.scene, this.camera);
     }
 

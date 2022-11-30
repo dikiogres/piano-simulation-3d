@@ -7,7 +7,7 @@ import SceneInit from '../lib/SceneInit';
 import Piano from '../lib/Piano';
 
 function Home() {
-
+  
   useEffect(() => {
     const test = new SceneInit('myThreeJsCanvas');
     test.initScene();
@@ -54,7 +54,6 @@ function Home() {
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('keyup', onKeyUp);
     return () => {
-      
       window.removeEventListener('keyup', onKeyUp);
       window.removeEventListener('keydown', onKeyDown);
     };
@@ -63,8 +62,8 @@ function Home() {
 
   return (
     <div>
-    <canvas id="myThreeJsCanvas"></canvas>
-  </div>
+      <canvas id="myThreeJsCanvas"></canvas>
+    </div>
   )
 }
 
