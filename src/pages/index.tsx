@@ -21,6 +21,25 @@ function Home() {
       p.renderText(font);
     });
 
+    const gui = new GUI();
+    const cameraFolder = gui.addFolder('Camera');
+    cameraFolder.add(test.camera.position, 'z', 100, 200);
+    cameraFolder.open();
+
+    const pianoFolder = gui.addFolder('Piano');
+    pianoFolder.addColor(p, 'highlightColor').name('Highlight Color');
+    pianoFolder
+      .add(p, 'displayText')
+      .name('Display Text')
+      .onChange((value) => {
+        if (value) {
+          p.renderText();
+        } else {
+          p.hideText();
+        }
+      });
+    pianoFolder.open();
+
     const onKeyDown = (event: any) => {
       if (event.repeat) {
         return;

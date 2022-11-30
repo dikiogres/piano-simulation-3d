@@ -82,7 +82,7 @@ export default class Key {
     
         // rotate the OBJECT
         this.keyGroup.rotateOnAxis(this.axis, this.theta * rotation);
-      }
+    }
 
     play(highlightColor: string) {
         this.rotateAroundWorldAxis(1);

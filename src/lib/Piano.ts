@@ -64,7 +64,7 @@ export default class Piano {
         });
     }
 
-    renderText(font: any) {
+    renderText(font?: any) {
         this.naturalKeys.forEach((key: any) => {
           key.renderKeyText(font);
         });
