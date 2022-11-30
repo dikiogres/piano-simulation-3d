@@ -7,6 +7,8 @@ export default class Piano {
     private pianoGroup: any;
     private flatKeys: any;
     private naturalKeys: any;
+    private displayText: boolean;
+    private highlightColor: string;
 
     constructor() {
         this.flatKeys = [
@@ -42,7 +44,18 @@ export default class Piano {
             new Key('B4', 'm', 130),
         ];
 
+        this.displayText = true;
+        this.highlightColor = '#61DBFB';
+
         this.pianoGroup = new THREE.Group(); 
+
+        this.pianoGroup = new THREE.Group();
+        this.pianoGroup.position.x = -65;
+        this.pianoGroup.rotation.x = -Math.PI / 4;
+        this.pianoGroup.add(
+          ...this.flatKeys.map((key: any) => key.keyGroup),
+          ...this.naturalKeys.map((key: any) => key.keyGroup)
+        );
     }
 
     getPianoGroup() {
