@@ -58,7 +58,40 @@ export default class Piano {
         );
     }
 
+    hideText() {
+        this.naturalKeys.forEach((key: any) => {
+          key.hideKeyText();
+        });
+    }
+
+    renderText(font: any) {
+        this.naturalKeys.forEach((key: any) => {
+          key.renderKeyText(font);
+        });
+    }
+
     getPianoGroup() {
         return this.pianoGroup;
     }
+
+    getKeyFromInput(inputKey: any) {
+        const flatKey = this.flatKeys.find((k: any) => k.inputKey === inputKey);
+        const naturalKey = this.naturalKeys.find((k: any) => k.inputKey === inputKey);
+        return flatKey || naturalKey || undefined;
+    }
+
+    maybePlayNote(eventKey: any) {
+        const key = this.getKeyFromInput(eventKey);
+        if (key !== undefined) {
+          key.play(this.highlightColor);
+        }
+    }
+
+    maybeStopPlayingNote(eventKey: any) {
+        const key = this.getKeyFromInput(eventKey);
+        if (key !== undefined) {
+          key.stopPlaying();
+        }
+      }
+
 }

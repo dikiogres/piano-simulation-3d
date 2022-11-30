@@ -3,19 +3,37 @@ import { useEffect } from 'react';
 import * as THREE from 'three';
 
 import SceneInit from '../lib/SceneInit';
+import Piano from '../lib/Piano';
 
-export default function Home() {
+function Home() {
 
   useEffect(() => {
     const test = new SceneInit('myThreeJsCanvas');
     test.initScene();
     test.animate();
 
-    const geometry = new THREE.BoxGeometry(16, 16, 16);
-    const material = new THREE.MeshNormalMaterial();
-    const mesh = new THREE.Mesh(geometry, material);
+    const p = new Piano();
+    test.scene.add(p.getPianoGroup());
 
-    test.scene.add(mesh);
+    const onKeyDown = (event: any) => {
+      if (event.repeat) {
+        return;
+      }
+      p.maybePlayNote(event.key);
+    };
+
+    const onKeyUp = (event: any) => {
+      p.maybeStopPlayingNote(event.key);
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('keyup', onKeyUp);
+    return () => {
+      
+      window.removeEventListener('keyup', onKeyUp);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+
   }, []);
 
   return (
@@ -24,3 +42,5 @@ export default function Home() {
   </div>
   )
 }
+
+export default Home;
