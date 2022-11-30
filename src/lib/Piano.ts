@@ -13,7 +13,7 @@ export default class Piano {
 
         ];
       
-          this.naturalKeys = [
+        this.naturalKeys = [
 
         ];
 
