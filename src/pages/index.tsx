@@ -28,6 +28,11 @@ function Home() {
 
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('keyup', onKeyUp);
+    return () => {
+      
+      window.removeEventListener('keyup', onKeyUp);
+      window.removeEventListener('keydown', onKeyDown);
+    };
 
   }, []);
 

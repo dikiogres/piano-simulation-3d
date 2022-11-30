@@ -60,5 +60,5 @@ export default class Key {
           this.keyMesh.material.color.set('#ffffff');
         }
         this.rotateAroundWorldAxis(-1);
-      }
+    }
 }
