@@ -1,4 +1,3 @@
-import { Howl } from 'howler';
 import * as THREE from 'three';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 
@@ -21,10 +20,6 @@ export default class Key {
       this.inputKey = inputKey;
       this.isFlat = note.length === 3;
   
-      this.sound = new Howl({
-        src: [`./acoustic_grand_piano_mp3/${note}.mp3`],
-      });
-
       this.theta = Math.PI / 32;
       this.axis = new THREE.Vector3(1, 0, 0);
       this.point = new THREE.Vector3(0, 20, 0);
@@ -87,7 +82,6 @@ export default class Key {
         this.rotateAroundWorldAxis(1);
         this.sound.play();
         this.keyMesh.material.color.set(highlightColor);
-        this.sound.fade(1, 0, 1000);
     }
 
     stopPlaying() {
