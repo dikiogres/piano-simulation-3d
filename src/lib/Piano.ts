@@ -25,7 +25,21 @@ export default class Piano {
         ];
       
         this.naturalKeys = [
-
+            new Key('C3', 'q', 0),
+            new Key('D3', 'w', 10),
+            new Key('E3', 'e', 20),
+            new Key('F3', 'r', 30),
+            new Key('G3', 't', 40),
+            new Key('A3', 'y', 50),
+            new Key('B3', 'u', 60),
+      
+            new Key('C4', 'z', 70),
+            new Key('D4', 'x', 80),
+            new Key('E4', 'c', 90),
+            new Key('F4', 'v', 100),
+            new Key('G4', 'b', 110),
+            new Key('A4', 'n', 120),
+            new Key('B4', 'm', 130),
         ];
 
         this.pianoGroup = new THREE.Group(); 
