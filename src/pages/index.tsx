@@ -15,10 +15,18 @@ function Home() {
     const p = new Piano();
     test.scene.add(p.getPianoGroup());
 
+    const onKeyDown = (event: any) => {
+      if (event.repeat) {
+        return;
+      }
+      p.maybePlayNote(event.key);
+    };
+
     const onKeyUp = (event: any) => {
       p.maybeStopPlayingNote(event.key);
     };
 
+    window.addEventListener('keydown', onKeyDown);
     window.addEventListener('keyup', onKeyUp);
 
   }, []);
