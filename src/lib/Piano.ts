@@ -58,6 +58,12 @@ export default class Piano {
         );
     }
 
+    hideText() {
+        this.naturalKeys.forEach((key: any) => {
+          key.hideKeyText();
+        });
+    }
+
     renderText(font: any) {
         this.naturalKeys.forEach((key: any) => {
           key.renderKeyText(font);

@@ -14,6 +14,7 @@ export default class Key {
     private axis: any;
     private point: any;
     private textMesh: any;
+    private naturalKeys: any;
     //private rotateAroundWorldAxis: any;
 
     constructor(note: string, inputKey: string, xOffset: any){
@@ -47,6 +48,10 @@ export default class Key {
 
     }
 
+    hideKeyText() {
+        this.textMesh.visible = false;
+    }
+    
     renderKeyText(font: any) {
         if (this.textMesh) {
           this.textMesh.visible = true;
@@ -63,7 +68,7 @@ export default class Key {
           this.textMesh.position.y = -18;
           this.keyGroup.add(this.textMesh);
         }
-      }
+    }
 
     play(highlightColor: string) {
         this.sound.play();
