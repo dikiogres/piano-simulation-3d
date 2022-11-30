@@ -13,6 +13,7 @@ export default class Key {
     private theta: number;
     private axis: any;
     private point: any;
+    private rotateAroundWorldAxis: any;
 
     constructor(note: string, inputKey: string, xOffset: any){
       this.note = note;
@@ -44,4 +45,11 @@ export default class Key {
       this.keyGroup.add(this.keyMesh);
 
     }
+
+    play(highlightColor: string) {
+        this.rotateAroundWorldAxis(1);
+        this.sound.play();
+        this.keyMesh.material.color.set(highlightColor);
+        this.sound.fade(1, 0, 1000);
+      }
 }
