@@ -61,4 +61,18 @@ export default class Piano {
     getPianoGroup() {
         return this.pianoGroup;
     }
+
+    getKeyFromInput(inputKey: any) {
+        const flatKey = this.flatKeys.find((k: any) => k.inputKey === inputKey);
+        const naturalKey = this.naturalKeys.find((k: any) => k.inputKey === inputKey);
+        return flatKey || naturalKey || undefined;
+    }
+
+    maybePlayNote(eventKey: any) {
+        const key = this.getKeyFromInput(eventKey);
+        if (key !== undefined) {
+          key.play(this.highlightColor);
+        }
+    }
+
 }
