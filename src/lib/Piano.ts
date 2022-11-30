@@ -75,4 +75,11 @@ export default class Piano {
         }
     }
 
+    maybeStopPlayingNote(eventKey: any) {
+        const key = this.getKeyFromInput(eventKey);
+        if (key !== undefined) {
+          key.stopPlaying();
+        }
+      }
+
 }
