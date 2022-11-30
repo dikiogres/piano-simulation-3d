@@ -51,5 +51,14 @@ export default class Key {
         this.sound.play();
         this.keyMesh.material.color.set(highlightColor);
         this.sound.fade(1, 0, 1000);
+    }
+
+    stopPlaying() {
+        if (this.isFlat) {
+          this.keyMesh.material.color.set('#000000');
+        } else {
+          this.keyMesh.material.color.set('#ffffff');
+        }
+        this.rotateAroundWorldAxis(-1);
       }
 }
