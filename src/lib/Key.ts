@@ -13,7 +13,8 @@ export default class Key {
     private theta: number;
     private axis: any;
     private point: any;
-    private rotateAroundWorldAxis: any;
+    private textMesh: any;
+    //private rotateAroundWorldAxis: any;
 
     constructor(note: string, inputKey: string, xOffset: any){
       this.note = note;
@@ -46,8 +47,25 @@ export default class Key {
 
     }
 
+    renderKeyText(font: any) {
+        if (this.textMesh) {
+          this.textMesh.visible = true;
+        } else {
+          const geometry = new TextGeometry(this.note[0], {
+            font,
+            size: 4,
+            height: 2,
+          });
+          const material = new THREE.MeshNormalMaterial();
+          this.textMesh = new THREE.Mesh(geometry, material);
+          this.textMesh.position.z = 2;
+          this.textMesh.position.x = -1.5;
+          this.textMesh.position.y = -18;
+          this.keyGroup.add(this.textMesh);
+        }
+      }
+
     play(highlightColor: string) {
-        this.rotateAroundWorldAxis(1);
         this.sound.play();
         this.keyMesh.material.color.set(highlightColor);
         this.sound.fade(1, 0, 1000);
@@ -59,6 +77,5 @@ export default class Key {
         } else {
           this.keyMesh.material.color.set('#ffffff');
         }
-        this.rotateAroundWorldAxis(-1);
     }
 }
