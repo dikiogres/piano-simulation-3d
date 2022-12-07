@@ -43,7 +43,7 @@ function App() {
         pianoFolder
           .add(p, 'displayText')
           .name('Display Text')
-          .onChange((value:any) => {
+          .onChange((value: any) => {
             if (value) {
               p.renderText();
             } else {
@@ -52,14 +52,14 @@ function App() {
           });
         pianoFolder.open();
 
-        const onKeyDown = (event:any) => {
+        const onKeyDown = (event: any) => {
           if (event.repeat) {
             return;
           }
           p.maybePlayNote(event.key);
         };
 
-        const onKeyUp = (event:any) => {
+        const onKeyUp = (event: any) => {
           p.maybeStopPlayingNote(event.key);
         };
 
