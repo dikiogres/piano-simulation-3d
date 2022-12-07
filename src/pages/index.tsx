@@ -48,7 +48,7 @@ function Home() {
       p.maybePlayNote(event.key);
     };
 
-    const onKeyUp = (event:any) => {
+    const onKeyUp = (event: any) => {
       p.maybeStopPlayingNote(event.key);
     };
 
