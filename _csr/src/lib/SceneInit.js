@@ -28,7 +28,7 @@ export default class SceneInit {
 
     // NOTE: Load space background.
     this.loader = new THREE.TextureLoader();
-    this.scene.background = this.loader.load('./pics/space.jpeg');
+    this.scene.background = this.loader.load('./pics/concert.jpg');
 
     // NOTE: Declare uniforms to pass into glsl shaders.
     this.uniforms = {
