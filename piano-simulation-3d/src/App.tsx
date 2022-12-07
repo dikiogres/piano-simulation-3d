@@ -1,34 +1,100 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useEffect } from 'react';
+
+import { GUI } from 'dat.gui';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+
+import SceneInit from './lib/SceneInit';
+import Piano from './lib/Piano';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  let gui: any;
+
+  const initGui = async () => {
+    const dat = await import("dat.gui");
+    gui = new dat.GUI();
+  };
+
+
+  useEffect(() => {
+    (
+      async () => {
+        const test = new SceneInit('myThreeJsCanvas');
+        test.initScene();
+        test.animate();
+
+        const p = new Piano();
+        test.scene.add(p.getPianoGroup());
+
+        const fontLoader = new FontLoader();
+        fontLoader.load('./fonts/Helvetica-Bold.typeface.json', (font) => {
+          p.renderText(font);
+        });
+
+        await initGui();
+        // const gui = new GUI();
+        const cameraFolder = gui.addFolder('Camera');
+        cameraFolder.add(test.camera.position, 'z', 100, 200);
+        cameraFolder.open();
+
+        // NOTE: UI bug caused by importing tailwind css.
+        const pianoFolder = gui.addFolder('Piano');
+        pianoFolder.addColor(p, 'highlightColor').name('Highlight Color');
+        pianoFolder
+          .add(p, 'displayText')
+          .name('Display Text')
+          .onChange((value:any) => {
+            if (value) {
+              p.renderText();
+            } else {
+              p.hideText();
+            }
+          });
+        pianoFolder.open();
+
+        const onKeyDown = (event:any) => {
+          if (event.repeat) {
+            return;
+          }
+          p.maybePlayNote(event.key);
+        };
+
+        const onKeyUp = (event:any) => {
+          p.maybeStopPlayingNote(event.key);
+        };
+
+        window.addEventListener('keyup', onKeyUp);
+        window.addEventListener('keydown', onKeyDown);
+
+        return () => {
+          window.removeEventListener('keyup', onKeyUp);
+          window.removeEventListener('keydown', onKeyDown);
+        };
+      }
+    )();
+
+    // NOTE: Play piano with mouse.
+    // const mouse = new THREE.Vector2();
+    // const raycaster = new THREE.Raycaster();
+    // function onMouseDown(event) {
+    //   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    //   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    //   raycaster.setFromCamera(mouse, test.camera);
+    //   const intersects = raycaster.intersectObjects(pianoObject.children);
+    //   console.log(intersects);
+    //   if (intersects.length > 0) {
+    //     intersects.forEach((note) =>
+    //       console.log((note.object.position.z = -10))
+    //     );
+    //   }
+    // }
+  });
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div>
+      <canvas id="myThreeJsCanvas"></canvas>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
