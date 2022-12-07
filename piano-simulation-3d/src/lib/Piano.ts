@@ -4,11 +4,11 @@ import Key from './Key';
 
 export default class Piano {
 
-  public pianoGroup;
-  public flatKeys;
-  public naturalKeys;
-  public displayText;
-  public highlightColor;
+  public pianoGroup: any;
+  public flatKeys: any;
+  public naturalKeys: any;
+  public displayText: boolean;
+  public highlightColor: string;
 
   constructor() {
     this.flatKeys = [
