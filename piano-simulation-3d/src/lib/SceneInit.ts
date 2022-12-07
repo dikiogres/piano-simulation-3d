@@ -5,15 +5,16 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 export default class SceneInit {
 
   public fov: number;
-  public camera:any;
-  public scene:any;
+  public camera:THREE.PerspectiveCamera = new THREE.PerspectiveCamera;
+  public scene: THREE.Scene = new THREE.Scene();
   public stats: any;
   public controls: any;
-  public renderer:any;
+  public renderer:THREE.WebGLRenderer = new THREE.WebGLRenderer();
   public clock: any;
   public uniforms: any;
   public canvasID: any;
-  public loader: any
+  public loader: any;
+  private container = document.getElementById('myThreeJsCanvas');
 
   constructor(fov:any = 36, camera?:any, scene?:any, stats?:number, controls?:string, renderer?:any, canvasID?:any) {
     this.fov = fov;
