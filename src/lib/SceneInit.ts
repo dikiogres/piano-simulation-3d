@@ -4,25 +4,26 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 
 export default class SceneInit {
 
-    private fov: number;
-    public camera:any = new THREE.PerspectiveCamera;
-    public scene:any = new THREE.Scene;
-    private stats: any;
-    private controls: any;
-    private renderer:any = new THREE.WebGLRenderer;
-    private clock: any;
-    private uniforms: any;
-    private canvasID: any;
+  public fov: number;
+  public camera:any;
+  public scene:any;
+  public stats: any;
+  public controls: any;
+  public renderer:any;
+  public clock: any;
+  public uniforms: any;
+  public canvasID: any;
+  public loader: any
 
-    constructor(fov:any = 36, camera?:any, scene?:any, stats?:number, controls?:string, renderer?:any, canvasID?:any) {
-        this.fov = fov;
-        this.scene = scene;
-        this.stats = stats;
-        this.camera = camera;
-        this.controls = controls;
-        this.renderer = renderer;
-        this.canvasID = canvasID;
-    }
+  constructor(fov:any = 36, camera?:any, scene?:any, stats?:number, controls?:string, renderer?:any, canvasID?:any) {
+    this.fov = fov;
+    this.scene = scene;
+    this.stats = stats;
+    this.camera = camera;
+    this.controls = controls;
+    this.renderer = renderer;
+    this.canvasID = canvasID;
+  }
 
   initScene() {
     this.camera = new THREE.PerspectiveCamera(
@@ -38,8 +39,8 @@ export default class SceneInit {
     this.scene = new THREE.Scene();
 
     // NOTE: Load space background.
-    // this.loader = new THREE.TextureLoader();
-    // this.scene.background = this.loader.load('./pics/space.jpeg');
+    this.loader = new THREE.TextureLoader();
+    this.scene.background = this.loader.load('/space.jpeg');
 
     // NOTE: Declare uniforms to pass into glsl shaders.
     this.uniforms = {
