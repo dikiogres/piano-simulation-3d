@@ -27,13 +27,13 @@ export default class Piano {
       new Key('A3', 'y', 50),
       new Key('B3', 'u', 60),
 
-      new Key('C4', 'z', 70),
-      new Key('D4', 'x', 80),
-      new Key('E4', 'c', 90),
-      new Key('F4', 'v', 100),
-      new Key('G4', 'b', 110),
-      new Key('A4', 'n', 120),
-      new Key('B4', 'm', 130),
+      new Key('C4', 'i', 70),
+      new Key('D4', 'o', 80),
+      new Key('E4', 'p', 90),
+      new Key('F4', '[', 100),
+      new Key('G4', ']', 110),
+      new Key('A4', 'l', 120),
+      new Key('B4', ';', 130),
     ];
 
     this.displayText = true;
