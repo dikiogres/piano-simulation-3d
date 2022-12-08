@@ -32,12 +32,12 @@ export default class Piano {
       new Key('E4', 'p', 90),
       new Key('F4', '[', 100),
       new Key('G4', ']', 110),
-      new Key('A4', 'n', 120),
-      new Key('B4', 'm', 130),
+      new Key('A4', 'l', 120),
+      new Key('B4', ';', 130),
     ];
 
     this.displayText = true;
-    this.highlightColor = '#FEBE8C';
+    this.highlightColor = '#61DBFB';
 
     this.pianoGroup = new THREE.Group();
     this.pianoGroup.position.x = -65;
@@ -46,6 +46,18 @@ export default class Piano {
       ...this.flatKeys.map((key) => key.keyGroup),
       ...this.naturalKeys.map((key) => key.keyGroup)
     );
+  }
+
+  hideText() {
+    this.naturalKeys.forEach((key) => {
+      key.hideKeyText();
+    });
+  }
+
+  renderText(font) {
+    this.naturalKeys.forEach((key) => {
+      key.renderKeyText(font);
+    });
   }
 
   getPianoGroup() {
