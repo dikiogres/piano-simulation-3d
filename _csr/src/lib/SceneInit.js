@@ -26,19 +26,17 @@ export default class SceneInit {
     this.clock = new THREE.Clock();
     this.scene = new THREE.Scene();
 
-    // NOTE: Load space background.
     this.loader = new THREE.TextureLoader();
     this.scene.background = this.loader.load('./pics/concert.jpg');
 
-    // NOTE: Declare uniforms to pass into glsl shaders.
+    //Declare uniforms to pass into glsl shaders.
     this.uniforms = {
       u_time: { type: 'f', value: 1.0 },
       colorB: { type: 'vec3', value: new THREE.Color(0xfff000) },
       colorA: { type: 'vec3', value: new THREE.Color(0xffffff) },
     };
 
-    // specify a canvas which is already created in the HTML file and tagged by an id
-    // aliasing enabled
+    // specify a canvas 
     const canvas = document.getElementById(this.canvasID);
     this.renderer = new THREE.WebGLRenderer({
       canvas: document.getElementById("myThreeJsCanvas"),
@@ -53,12 +51,12 @@ export default class SceneInit {
     this.stats = Stats();
     document.body.appendChild(this.stats.dom);
 
-    // ambient light which is for the whole scene
+    // ambient light 
     let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     ambientLight.castShadow = true;
     this.scene.add(ambientLight);
 
-    // spot light which is illuminating the chart directly
+    // spot light 
     let spotLight = new THREE.SpotLight(0xffffff, 1);
     spotLight.castShadow = true;
     spotLight.position.set(0, 64, 32);
@@ -69,8 +67,7 @@ export default class SceneInit {
   }
 
   animate() {
-    // NOTE: Window is implied.
-    // requestAnimationFrame(this.animate.bind(this));
+    //Window is implied.
     window.requestAnimationFrame(this.animate.bind(this));
     this.render();
     this.stats.update();
@@ -78,7 +75,7 @@ export default class SceneInit {
   }
 
   render() {
-    // NOTE: Update uniform data on each render.
+    //Update uniform 
     this.uniforms.u_time.value += this.clock.getDelta();
     this.renderer.render(this.scene, this.camera);
   }
