@@ -48,6 +48,18 @@ export default class Piano {
     );
   }
 
+  hideText() {
+    this.naturalKeys.forEach((key) => {
+      key.hideKeyText();
+    });
+  }
+
+  renderText(font) {
+    this.naturalKeys.forEach((key) => {
+      key.renderKeyText(font);
+    });
+  }
+
   getPianoGroup() {
     return this.pianoGroup;
   }
