@@ -29,7 +29,7 @@ export default class SceneInit {
     this.loader = new THREE.TextureLoader();
     this.scene.background = this.loader.load('./pics/concert.jpg');
 
-    //Declare uniforms to pass into glsl shaders.
+    //Declare uniforms
     this.uniforms = {
       u_time: { type: 'f', value: 1.0 },
       colorB: { type: 'vec3', value: new THREE.Color(0xfff000) },
@@ -51,7 +51,7 @@ export default class SceneInit {
     this.stats = Stats();
     document.body.appendChild(this.stats.dom);
 
-    // ambient light 
+    // ambient light
     let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     ambientLight.castShadow = true;
     this.scene.add(ambientLight);
@@ -67,7 +67,6 @@ export default class SceneInit {
   }
 
   animate() {
-    //Window is implied.
     window.requestAnimationFrame(this.animate.bind(this));
     this.render();
     this.stats.update();
@@ -75,7 +74,6 @@ export default class SceneInit {
   }
 
   render() {
-    //Update uniform 
     this.uniforms.u_time.value += this.clock.getDelta();
     this.renderer.render(this.scene, this.camera);
   }
