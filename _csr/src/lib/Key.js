@@ -33,28 +33,6 @@ export default class Key {
     this.keyGroup.add(this.keyMesh);
   }
 
-  hideKeyText() {
-    this.textMesh.visible = false;
-  }
-
-  renderKeyText(font) {
-    if (this.textMesh) {
-      this.textMesh.visible = true;
-    } else {
-      const geometry = new TextGeometry(this.note[0], {
-        font,
-        size: 4,
-        height: 2,
-      });
-      const material = new THREE.MeshNormalMaterial();
-      this.textMesh = new THREE.Mesh(geometry, material);
-      this.textMesh.position.z = 2;
-      this.textMesh.position.x = -1.5;
-      this.textMesh.position.y = -18;
-      this.keyGroup.add(this.textMesh);
-    }
-  }
-
   rotateAroundWorldAxis(rotation) {
     // remove the offset
     this.keyGroup.position.sub(this.point);
