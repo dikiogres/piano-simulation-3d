@@ -37,7 +37,7 @@ export default class Piano {
     ];
 
     this.displayText = true;
-    this.highlightColor = '#FEBE8C';
+    this.highlightColor = '#61DBFB';
 
     this.pianoGroup = new THREE.Group();
     this.pianoGroup.position.x = -65;
