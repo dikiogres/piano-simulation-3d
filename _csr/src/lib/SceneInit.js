@@ -29,7 +29,7 @@ export default class SceneInit {
     this.loader = new THREE.TextureLoader();
     this.scene.background = this.loader.load('./pics/concert.jpg');
 
-    //Declare uniforms
+    //declare uniforms
     this.uniforms = {
       u_time: { type: 'f', value: 1.0 },
       colorB: { type: 'vec3', value: new THREE.Color(0xfff000) },
